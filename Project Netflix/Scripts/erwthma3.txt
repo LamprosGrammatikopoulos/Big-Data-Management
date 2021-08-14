@@ -1,0 +1,26 @@
+db.data.aggregate(
+[{
+    $unwind: {
+        path: "$listed_in"
+    }
+}, {
+    $match: {
+        listed_in: {
+            $ne: ""
+        }
+    }
+}, {
+    $group: {
+        _id: "$listed_in",
+        count: {
+            $sum: 1
+        }
+    }
+}, {
+    $sort: {
+        count: -1
+    }
+}, {
+    $out: "results3"
+}]
+)

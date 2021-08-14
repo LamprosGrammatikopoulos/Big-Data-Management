@@ -1,0 +1,19 @@
+db.data.aggregate(
+[{
+    $match: {
+        date_added: "2019"
+    }
+}, {
+    $group: {
+        _id: "$show_id",
+        type: {
+            $first: "$type"
+        },
+        title: {
+            $first: "$title"
+        }
+    }
+}, {
+    $out: "results1"
+}]
+)
